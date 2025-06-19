@@ -5,11 +5,11 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { SessionStrategy } from "next-auth";
 import prismadb from "./prismadb"; // adjust path if needed
-
+import { AdapterAccount } from "next-auth/adapters"; 
 // Custom adapter to transform expires_at
 const customPrismaAdapter = {
   ...PrismaAdapter(prismadb),
-  linkAccount: async (account) => {
+  linkAccount: async ({ account }: { account: AdapterAccount }) => {
     const transformedAccount = {
       ...account,
       expiresAt: account.expires_at ? Math.floor(account.expires_at) : null,
@@ -80,7 +80,7 @@ const authOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   events: {
-    async linkAccount({ account }) {
+    async linkAccount({ account }: { account: AdapterAccount }) {
       try {
         if (account.expires_at !== undefined) {
           await prismadb.account.update({
