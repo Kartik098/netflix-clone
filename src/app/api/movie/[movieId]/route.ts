@@ -1,17 +1,17 @@
-import prismadb from "../../../../../lib/prismadb"; // adjust path if needed
+import prismadb from "../../../../../lib/prismadb";
 import serverAuth from "../../../../../lib/serverAuth";
 import { NextRequest } from "next/server";
 
-export async function GET(
-  req: NextRequest,
-  context: { params: { movieId: string } }
-) {
+export async function GET(req: NextRequest) {
   try {
     await serverAuth();
 
-    const { movieId } = await context.params;
+    // Extract the movieId from the URL
+    const url = new URL(req.url);
+    const movieId = url.pathname.split("/").pop(); // or use regex
 
-    console.log("movieId:", movieId, typeof movieId); // ✅ Confirm it's a string
+    console.log("movieId:", movieId, typeof movieId);
+
     if (!movieId || typeof movieId !== "string") {
       return new Response("Invalid movie ID", { status: 400 });
     }
