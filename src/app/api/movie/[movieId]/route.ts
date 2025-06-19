@@ -2,36 +2,38 @@ import { NextRequest } from 'next/server';
 import prismadb from "../../../../../lib/prismadb" // adjust path if needed
 import serverAuth from '../../../../../lib/serverAuth';
 
-export async function GET(req: NextRequest, context: { params: { movieId: string } }) {
+
+export async function GET(
+  req: NextRequest,
+  context: { params: { movieId: string } }
+) {
   try {
     await serverAuth(req);
-    
-      const { movieId } = context.params;
-    console.log("Debugging", context)
-  if(typeof movieId != "string"){
-    return new Response("Invalid Id", { status: 500 });
 
-  }
- if(!movieId){
-    return new Response("Invalid Id", { status: 500 });
-  }
+    const movieId = context.params.movieId;
+
+    if (!movieId || typeof movieId !== 'string') {
+      return new Response('Invalid movie ID', { status: 400 });
+    }
+
     const movie = await prismadb.movie.findUnique({
-      where :{
-          id: movieId,
-      }
+      where: {
+        id: movieId,
+      },
     });
-     if(!movie){
-    return new Response("Invalid Id", { status: 500 });
 
-  }
-     return new Response(JSON.stringify(movie), {
+    if (!movie) {
+      return new Response('Movie not found', { status: 404 });
+    }
+
+    return new Response(JSON.stringify(movie), {
       status: 200,
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
   } catch (err) {
-    console.error("API Error:", err);
-    return new Response("Not signed in", { status: 401 });
+    console.error('[MOVIE_GET_ERROR]', err);
+    return new Response('Internal Server Error', { status: 500 });
   }
 }
