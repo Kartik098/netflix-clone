@@ -15,9 +15,8 @@ const eslintConfig = [
     files: ["**/*.ts", "**/*.tsx"], // Apply to TS files
     rules: {
      "@next/next/no-img-element": "off",
-      "@typescript-eslint/no-explicit-any": "off",
-       '@typescript-eslint/no-misused-promises': 'warn',
-    },
+      "@typescript-eslint/no-explicit-any": "off"
+        },
   }, 
 ];
 
