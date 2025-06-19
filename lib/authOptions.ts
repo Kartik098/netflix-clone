@@ -5,7 +5,7 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { SessionStrategy } from "next-auth";
 import prismadb from "./prismadb"; // adjust path if needed
-import { AdapterAccount } from "next-auth/adapters"; 
+
 import type { Account, User } from "next-auth";
 import type { AdapterUser } from "next-auth/adapters";
 // Custom adapter to transform expires_at
@@ -92,6 +92,7 @@ const authOptions = {
     profile?: any;
   }) {
       try {
+        console.log(user, profile)
         if (account.expires_at !== undefined) {
           await prismadb.account.update({
             where: {
