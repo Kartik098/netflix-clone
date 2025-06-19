@@ -1,19 +1,19 @@
-import prismadb from "../../../../../lib/prismadb" // adjust path if needed
-import serverAuth from '../../../../../lib/serverAuth';
-
+import prismadb from "../../../../../lib/prismadb"; // adjust path if needed
+import serverAuth from "../../../../../lib/serverAuth";
+import { NextRequest } from "next/server";
 
 export async function GET(
- context: { params: Promise<{ movieId: string }> }
+  req: NextRequest,
+  context: { params: { movieId: string } }
 ) {
   try {
     await serverAuth();
 
-  const movieId = (await context.params).movieId;
+    const { movieId } = await context.params;
 
-
-  console.log("movieId:", movieId, typeof movieId); // ✅ Confirm it's a string
-    if (!movieId || typeof movieId != 'string') {
-      return new Response('Invalid movie ID', { status: 400 });
+    console.log("movieId:", movieId, typeof movieId); // ✅ Confirm it's a string
+    if (!movieId || typeof movieId !== "string") {
+      return new Response("Invalid movie ID", { status: 400 });
     }
 
     const movie = await prismadb.movie.findUnique({
@@ -23,17 +23,17 @@ export async function GET(
     });
 
     if (!movie) {
-      return new Response('Movie not found', { status: 404 });
+      return new Response("Movie not found", { status: 404 });
     }
 
     return new Response(JSON.stringify(movie), {
       status: 200,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
   } catch (err) {
-    console.error('[MOVIE_GET_ERROR]', err);
-    return new Response('Internal Server Error', { status: 500 });
+    console.error("[MOVIE_GET_ERROR]", err);
+    return new Response("Internal Server Error", { status: 500 });
   }
 }
