@@ -5,14 +5,16 @@ import serverAuth from '../../../../../lib/serverAuth';
 
 export async function GET(
   req: NextRequest,
-  context: { params: { movieId: string } }
+ context: { params: Promise<{ movieId: string }> }
 ) {
   try {
     await serverAuth(req);
 
-    const movieId = context.params.movieId;
+  const movieId = (await context.params).movieId;
 
-    if (!movieId || typeof movieId !== 'string') {
+
+  console.log("movieId:", movieId, typeof movieId); // ✅ Confirm it's a string
+    if (!movieId || typeof movieId != 'string') {
       return new Response('Invalid movie ID', { status: 400 });
     }
 

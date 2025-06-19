@@ -17,6 +17,7 @@ const eslintConfig = [
      "@next/next/no-img-element": "off",
       "@typescript-eslint/no-explicit-any": "off",
       'no-direct-params-destructuring': 'warn',
+       '@typescript-eslint/no-misused-promises': 'warn',
     },
   }, 
 ];
