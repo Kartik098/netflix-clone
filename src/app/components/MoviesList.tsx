@@ -6,7 +6,7 @@ interface Movie {
   id: string;
   title: string;
   description: string;
-  thumbnailUrl: string'
+  thumbnailUrl: string;
   videoUrl: string;
   // add any other properties your MovieCard expects
 }
