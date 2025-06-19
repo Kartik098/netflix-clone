@@ -4,7 +4,6 @@ import serverAuth from '../../../../../lib/serverAuth';
 
 
 export async function GET(
-  req: NextRequest,
  context: { params: Promise<{ movieId: string }> }
 ) {
   try {

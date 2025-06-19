@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 import prismadb from "../../../../lib/prismadb" // adjust path if needed
 import serverAuth from '../../../../lib/serverAuth';
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     await serverAuth();
     const moviecount = await prismadb.movie.count()
