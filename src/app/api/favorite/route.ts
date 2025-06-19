@@ -6,7 +6,7 @@ import { without } from "lodash";
 
 export async function POST(req: NextRequest) {
   try {
-    const { currentUser } = await serverAuth(req);
+    const { currentUser } = await serverAuth();
     const body = await req.json();
     const movieId = body.movieId;
     const existingMovies = await prismadb.movie.findMany({
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
-    const { currentUser } = await serverAuth(req);
+    const { currentUser } = await serverAuth();
     const body = await req.json();
     const movieId = body.movieId;
 

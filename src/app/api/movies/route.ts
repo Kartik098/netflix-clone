@@ -6,7 +6,7 @@ import prismadb from "../../../../lib/prismadb";
 
 export async function GET(req: NextRequest) {
   try {
-    await serverAuth(req);
+    await serverAuth();
     const movies = await prismadb.movie.findMany({});
 
     return new Response(JSON.stringify(movies), {

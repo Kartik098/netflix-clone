@@ -6,7 +6,7 @@ import prismadb from "../../../../lib/prismadb";
 
 export async function GET(req: NextRequest) {
   try {
-    const { currentUser } = await serverAuth(req);
+    const { currentUser } = await serverAuth();
     const favouriteMovies = await prismadb.movie.findMany({
         where: {
             id:{

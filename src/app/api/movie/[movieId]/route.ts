@@ -8,7 +8,7 @@ export async function GET(
  context: { params: Promise<{ movieId: string }> }
 ) {
   try {
-    await serverAuth(req);
+    await serverAuth();
 
   const movieId = (await context.params).movieId;
 
