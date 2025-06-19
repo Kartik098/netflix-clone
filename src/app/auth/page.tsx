@@ -1,5 +1,4 @@
 'use client';
-import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react"
 import Input from "../components/Input"
 import axios from "axios";
@@ -8,7 +7,6 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
 const Auth = ()=> {
-  const router = useRouter();
   const [email, setEmail] = useState("")
   const [name, setName] = useState("")
   const [password, setPassword] = useState("")
@@ -27,7 +25,7 @@ const Auth = ()=> {
     } catch (err){
       console.log(err)
     }
-  }, [email, password, router])
+  }, [email, password])
   const register = useCallback(async ()=>{
     try {
       await axios.post('/api/register', {

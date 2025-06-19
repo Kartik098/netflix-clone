@@ -1,5 +1,4 @@
 'use client';
-import {  signOut } from "next-auth/react";
 import Navbar from "./components/Navbar";
 import Billboard from "./components/Billboard";
 import MoviesList from "./components/MoviesList";
