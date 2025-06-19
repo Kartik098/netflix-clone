@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+
 import serverAuth from "../../../../lib/serverAuth";
 import prismadb from "../../../../lib/prismadb";
 
